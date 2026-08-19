@@ -1,0 +1,19 @@
+# Build artifacts
+a.out
+*.o
+*.out
+*.gch
+*.exe
+
+# Backups
+*.bak
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.vs/
