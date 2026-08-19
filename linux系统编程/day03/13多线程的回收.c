@@ -1,4 +1,5 @@
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,13 +20,13 @@ int main(int argc, char const *argv[])
     {
         sleep(3);
 
-        printf("我是第1个子进程%d，我的父进程号是%n\n",getpid(),getppid());
+        printf("我是第1个子进程%d，我的父进程号是%d\n",getpid(),getppid());
         exit(0);
     }
     else if (i==1)
     {
         sleep(4);
-        printf("我是第2个子进程%d，我的父进程号是%n\n",getpid(),getppid());
+        printf("我是第2个子进程%d，我的父进程号是%d\n",getpid(),getppid());
         exit(1);
     }
     else if (i==2)
@@ -34,6 +35,32 @@ int main(int argc, char const *argv[])
         while (1)
         {
             sleep(1);
+            int status=0;
+            int ret = waitpid(-1,&status,WNOHANG);
+            if (ret==0)
+            {
+                printf("还没有进程退出\n");
+            }
+            else if (ret>0)
+            {
+                if (WEXITSTATUS(status)==0)
+                {
+                    printf("子程序1退出并且回收\n");
+                }
+                if (WEXITSTATUS(status)==1)
+                {
+                    printf("子程序2退出并且回收\n");
+                }
+                
+                
+            }
+            else
+            {
+                printf("所有子程序都已经退出并且回收\n");
+                break;
+            }
+            
+            
         }
         
     }
