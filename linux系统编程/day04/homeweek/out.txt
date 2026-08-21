@@ -1,0 +1,1 @@
+write 直接写入，�这行printf 内容会写入out.txt 而不是终端
