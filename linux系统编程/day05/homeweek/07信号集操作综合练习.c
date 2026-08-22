@@ -8,7 +8,7 @@
 void print_set(sigset_t *set,const char *name)
 {
     printf("%s:",name);
-    for (int i = 1; i < 31; i++)
+    for (int i = 1; i <= 31; i++)
     {
         printf("%d",sigismember(set,i));
     }
